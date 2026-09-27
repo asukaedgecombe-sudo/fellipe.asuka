@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fellipe and Asuka — two different houses, one little love story.">
+  <title>Fellipe ♥ Asuka</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --red: #740001;
+      --scarlet: #ae0001;
+      --navy: #0e1a40;
+      --blue: #222f5b;
+      --gold: #d3a625;
+      --cream: #fffaf0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--navy);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "DM Sans", sans-serif;
+      color: var(--cream);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .love-page {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(211, 166, 37, .10), transparent 28%),
+        linear-gradient(112deg, #740001 0%, #740001 38%, #151d47 55%, #0e1a40 100%);
+    }
+
+    .love-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      opacity: .32;
+      background-image:
+        linear-gradient(30deg, rgba(255,255,255,.025) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,.025) 87.5%, rgba(255,255,255,.025)),
+        linear-gradient(150deg, rgba(255,255,255,.022) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,.022) 87.5%, rgba(255,255,255,.022));
+      background-size: 50px 86px;
+      mask-image: radial-gradient(ellipse at center, black, transparent 78%);
+    }
+
+    .love-page::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(116,0,1,.28), transparent 35%, transparent 65%, rgba(14,26,64,.30)),
+        radial-gradient(ellipse at 50% 110%, rgba(0,0,0,.44), transparent 62%);
+    }
+
+    .light-ray {
+      position: absolute;
+      top: -18%;
+      width: 26vw;
+      height: 130%;
+      opacity: .14;
+      transform-origin: top center;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(255,250,240,.42), transparent 72%);
+      filter: blur(14px);
+    }
+
+    .ray-left {
+      left: 19%;
+      transform: rotate(20deg);
+    }
+
+    .ray-right {
+      right: 19%;
+      transform: rotate(-20deg);
+    }
+
+    .scene-wrap {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 2.25rem 1.25rem;
+      transition: filter .65s ease, background-color .65s ease;
+    }
+
+    .opening-panel {
+      width: min(100%, 640px);
+      text-align: center;
+      transition: opacity .55s ease, transform .55s ease, visibility .55s ease;
+    }
+
+    .question-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .85rem;
+      margin-bottom: 1.4rem;
+      color: var(--gold);
+      letter-spacing: .34em;
+      font-size: .72rem;
+      text-transform: uppercase;
+    }
+
+    .question-ornament::before,
+    .question-ornament::after {
+      content: "";
+      width: 58px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(211,166,37,.9));
+    }
+
+    .question-ornament::after {
+      background: linear-gradient(90deg, rgba(211,166,37,.9), transparent);
+    }
+
+    .opening-question {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      line-height: 1.15;
+      text-shadow: 0 3px 22px rgba(0,0,0,.32);
+      text-wrap: balance;
+    }
+
+    .question-subtext {
+      margin: 1.25rem auto 2.1rem;
+      max-width: 27rem;
+      color: rgba(255,250,240,.82);
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .answer-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .85rem;
+    }
+
+    .answer-button {
+      position: relative;
+      min-width: 174px;
+      min-height: 53px;
+      padding: .9rem 1.35rem;
+      border: 1px solid rgba(211,166,37,.72);
+      border-radius: 999px;
+      cursor: pointer;
+      overflow: hidden;
+      color: var(--cream);
+      font-weight: 700;
+      letter-spacing: .04rem;
+      box-shadow: 0 10px 26px rgba(0,0,0,.20);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .answer-button::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      opacity: .3;
+      background: linear-gradient(105deg, rgba(255,255,255,.23), transparent 34%);
+      pointer-events: none;
+    }
+
+    .answer-button:hover {
+      transform: translateY(-3px) scale(1.025);
+      border-color: #f0ce67;
+      box-shadow: 0 14px 32px rgba(0,0,0,.28), 0 0 21px rgba(211,166,37,.22);
+    }
+
+    .answer-button:active {
+      transform: translateY(0) scale(.985);
+    }
+
+    .answer-button:focus-visible {
+      outline: 3px solid #fff7d8;
+      outline-offset: 4px;
+    }
+
+    .yes-button {
+      background: linear-gradient(135deg, #ae0001, #740001);
+    }
+
+    .course-button {
+      background: linear-gradient(135deg, #222f5b, #0e1a40);
+    }
+
+    /* Reveal section */
+    .reveal-panel {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem 1.25rem;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .reveal-content {
+      position: relative;
+      width: min(100%, 650px);
+      text-align: center;
+      transform: scale(.93);
+    }
+
+    .photo-halo {
+      position: absolute;
+      top: 11%;
+      left: 50%;
+      width: min(88vw, 540px);
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      opacity: .15;
+      filter: blur(26px);
+      background: conic-gradient(from 220deg, var(--scarlet), var(--gold), var(--blue), var(--scarlet));
+    }
+
+    .reveal-photo-frame {
+      position: relative;
+      width: min(88vw, 440px);
+      margin: 0 auto;
+      padding: .68rem .68rem 1.2rem;
+      border: 1px solid rgba(211,166,37,.95);
+      border-radius: 21px 21px 12px 12px;
+      background: linear-gradient(135deg, rgba(255,250,240,.20), rgba(255,250,240,.075));
+      box-shadow:
+        -18px 0 42px rgba(174,0,1,.46),
+        18px 0 42px rgba(34,47,91,.62),
+        0 22px 46px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.46);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transform: translateY(17px) scale(.94);
+    }
+
+    .photo-inner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px 14px 7px 7px;
+      background: rgba(14,26,64,.5);
+      aspect-ratio: 1.22 / 1;
+    }
+
+    .photo-inner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(255,255,255,.14), transparent 31%, transparent 70%, rgba(211,166,37,.12));
+    }
+
+    /*
+      IMPORTANT:
+      Put your real photo in:
+      assets/ASUKAFELLIPE.png
+
+      GitHub Pages is case-sensitive, so the filename must match exactly.
+    */
+    .couple-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .couple-photo.loaded {
+      opacity: 1;
+    }
+
+    .image-error {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 1.5rem;
+      color: rgba(255,250,240,.85);
+      text-align: center;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .photo-caption-mark {
+      position: absolute;
+      bottom: .27rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,250,240,.78);
+      font-family: "Playfair Display", serif;
+      font-size: .73rem;
+      letter-spacing: .22em;
+      white-space: nowrap;
+    }
+
+    .names-lockup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(.65rem, 2vw, 1rem);
+      margin-top: 1.55rem;
+      font-family: "Playfair Display", serif;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .name-fellipe {
+      color: #ffcbc8;
+      text-shadow: 0 0 19px rgba(174,0,1,.82);
+      font-size: clamp(2rem, 6vw, 2.2rem);
+      font-weight: 600;
+    }
+
+    .name-asuka {
+      color: #d4ddff;
+      text-shadow: 0 0 19px rgba(67,103,210,.8);
+      font-size: clamp(2rem, 6vw, 2.2rem);
+      font-weight: 600;
+    }
+
+    .name-heart {
+      display: inline-grid;
+      place-items: center;
+      width: 31px;
+      height: 31px;
+      color: #ffeeb2;
+      font-size: 1.12rem;
+      text-shadow: 0 0 13px rgba(211,166,37,.95);
+      animation: heartBeat 2.3s ease-in-out infinite;
+    }
+
+    .story-block {
+      margin-top: .9rem;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .love-story-line {
+      margin: 0;
+      white-space: pre-line;
+      color: rgba(255,250,240,.96);
+      font-family: "Playfair Display", serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.52;
+    }
+
+    .stars-line,
+    .found-line {
+      margin: .8rem auto 0;
+      max-width: 31rem;
+      font-family: "Playfair Display", serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(255,250,240,.80);
+      line-height: 1.45;
+    }
+
+    .found-line {
+      margin-top: .24rem;
+      color: rgba(255,250,240,.95);
+    }
+
+    .closing-heart {
+      display: inline-block;
+      margin-top: .7rem;
+      color: #ffeaa0;
+      font-size: 1.25rem;
+      text-shadow: 0 0 16px rgba(211,166,37,1), 0 0 34px rgba(174,0,1,.45);
+      opacity: 0;
+      transform: scale(.5);
+    }
+
+    /* Decorative elements */
+    .ornament {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .corner-star {
+      color: var(--gold);
+      text-shadow: 0 0 13px rgba(211,166,37,.72);
+      font-size: 1.15rem;
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+
+    .star-one {
+      top: 8%;
+      left: 8%;
+    }
+
+    .star-two {
+      top: 19%;
+      right: 8%;
+      animation-delay: .7s;
+    }
+
+    .star-three {
+      bottom: 20%;
+      left: 11%;
+      animation-delay: 1.2s;
+    }
+
+    .star-four {
+      bottom: 10%;
+      right: 11%;
+      animation-delay: 1.8s;
+    }
+
+    .feather {
+      color: rgba(255,250,240,.48);
+      font-size: 2.6rem;
+      transform: rotate(-24deg);
+      filter: drop-shadow(0 0 8px rgba(255,255,255,.15));
+      animation: featherFloat 6s ease-in-out infinite;
+    }
+
+    .feather-left {
+      left: -1%;
+      bottom: 18%;
+    }
+
+    .feather-right {
+      right: -1%;
+      top: 22%;
+      transform: rotate(28deg) scaleX(-1);
+      animation-delay: -2.4s;
+    }
+
+    .heart-float {
+      color: #ffd4d1;
+      font-size: 1rem;
+      text-shadow: 0 0 12px rgba(174,0,1,.88);
+      animation: floatHeart 5s ease-in-out infinite;
+    }
+
+    .heart-left {
+      top: 36%;
+      left: 3%;
+    }
+
+    .heart-right {
+      top: 56%;
+      right: 3%;
+      color: #dce4ff;
+      text-shadow: 0 0 12px rgba(58,94,189,.9);
+      animation-delay: -2s;
+    }
+
+    /* Magic burst */
+    .magic-burst {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .burst-core {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff2ba;
+      box-shadow: 0 0 18px 8px rgba(211,166,37,.75);
+    }
+
+    .burst-dot {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      box-shadow: 0 0 9px currentColor;
+      transform: rotate(var(--rotation)) translateY(0);
+    }
+
+    .burst-dot.red {
+      color: var(--scarlet);
+      background: var(--scarlet);
+    }
+
+    .burst-dot.blue {
+      color: #6686e4;
+      background: #6686e4;
+    }
+
+    .burst-dot.gold {
+      color: var(--gold);
+      background: var(--gold);
+    }
+
+    /* Reveal states */
+    .is-revealed .opening-panel {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(.97) translateY(-10px);
+      pointer-events: none;
+    }
+
+    .is-revealed .scene-wrap {
+      background: rgba(4,8,24,.30);
+      filter: blur(1.5px);
+    }
+
+    .is-revealed .reveal-panel {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .is-revealed .magic-burst {
+      animation: burstShow 1.15s ease-out both;
+    }
+
+    .is-revealed .burst-core {
+      animation: coreFlash 1.05s ease-out both;
+    }
+
+    .is-revealed .burst-dot {
+      animation: scatter .95s cubic-bezier(.12,.78,.28,1) both;
+    }
+
+    .is-revealed .reveal-content {
+      animation: contentArrive .75s .56s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .is-revealed .reveal-photo-frame {
+      animation: photoReveal 1.2s .67s cubic-bezier(.2,.84,.25,1) both;
+    }
+
+    .is-revealed .names-lockup {
+      animation: riseIn .6s 1.22s ease-out both;
+    }
+
+    .is-revealed .story-block {
+      animation: riseIn .65s 1.41s ease-out both;
+    }
+
+    .is-revealed .closing-heart {
+      animation:
+        heartReveal .5s 1.78s ease-out both,
+        heartBeat 2.3s 2.3s ease-in-out infinite;
+    }
+
+    .is-revealed .ornament {
+      animation: ornamentAppear .7s 1.15s ease-out forwards;
+    }
+
+    /* Animations */
+    @keyframes burstShow {
+      0% {
+        opacity: 0;
+        transform: scale(.3);
+      }
+      18% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.7);
+      }
+    }
+
+    @keyframes coreFlash {
+      0% {
+        transform: scale(.2);
+        opacity: 0;
+      }
+      30% {
+        transform: scale(3.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(7);
+        opacity: 0;
+      }
+    }
+
+    @keyframes scatter {
+      0% {
+        opacity: 0;
+        transform: rotate(var(--rotation)) translateY(0) scale(.4);
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: rotate(var(--rotation)) translateY(-155px) scale(1);
+      }
+    }
+
+    @keyframes contentArrive {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes photoReveal {
+      from {
+        opacity: 0;
+        transform: translateY(0) scale(.85);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes riseIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heartReveal {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes ornamentAppear {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        transform: scale(.75) rotate(0deg);
+        opacity: .45;
+      }
+      50% {
+        transform: scale(1.2) rotate(24deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes heartBeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      14% {
+        transform: scale(1.16);
+      }
+      28% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatHeart {
+      0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+        opacity: .55;
+      }
+      50% {
+        transform: translateY(-17px) rotate(7deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes featherFloat {
+      0%, 100% {
+        margin-top: 0;
+        opacity: .36;
+      }
+      50% {
+        margin-top: -20px;
+        opacity: .62;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .scene-wrap {
+        padding: 1.65rem 1rem;
+      }
+
+      .question-ornament {
+        margin-bottom: 1rem;
+      }
+
+      .question-subtext {
+        margin-bottom: 1.55rem;
+      }
+
+      .answer-row {
+        display: grid;
+        width: min(100%, 285px);
+        margin: 0 auto;
+      }
+
+      .answer-button {
+        width: 100%;
+      }
+
+      .feather,
+      .heart-float {
+        display: none;
+      }
+
+      .star-three,
+      .star-four {
+        display: none;
+      }
+
+      .burst-dot:nth-of-type(n+11) {
+        display: none;
+      }
+
+      .reveal-photo-frame {
+        width: min(92vw, 420px);
+      }
+
+      .photo-caption-mark {
+        font-size: .63rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .is-revealed .scene-wrap {
+        filter: none;
+      }
+
+      .is-revealed .reveal-content,
+      .is-revealed .reveal-photo-frame,
+      .is-revealed .names-lockup,
+      .is-revealed .story-block,
+      .is-revealed .closing-heart,
+      .is-revealed .ornament {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="love-page" id="love-page">
+
+    <div class="light-ray ray-left"></div>
+    <div class="light-ray ray-right"></div>
+
+    <section class="scene-wrap" id="scene-wrap">
+
+      <!-- Opening question -->
+      <section class="opening-panel" id="opening-panel" aria-label="A question for you">
+        <div class="question-ornament" aria-hidden="true">
+          a little magic
+        </div>
+
+        <h1 class="opening-question">
+          Do you love me?
+        </h1>
+
+        <p class="question-subtext">
+          There is only one right kind of magic here.
+        </p>
+
+        <div class="answer-row">
+          <button class="answer-button yes-button" id="yes-button" type="button">
+            YES ❤️
+          </button>
+
+          <button class="answer-button course-button" id="of-course-button" type="button">
+            OF COURSE ✨
+          </button>
+        </div>
+      </section>
+
+      <!-- Romantic reveal -->
+      <section class="reveal-panel" id="reveal-panel" aria-live="polite" aria-hidden="true">
+
+        <div class="magic-burst" aria-hidden="true">
+          <span class="burst-core"></span>
+          <span class="burst-dot red" style="--rotation: 0deg"></span>
+          <span class="burst-dot blue" style="--rotation: 28deg"></span>
+          <span class="burst-dot gold" style="--rotation: 54deg"></span>
+          <span class="burst-dot red" style="--rotation: 82deg"></span>
+          <span class="burst-dot blue" style="--rotation: 109deg"></span>
+          <span class="burst-dot gold" style="--rotation: 139deg"></span>
+          <span class="burst-dot red" style="--rotation: 169deg"></span>
+          <span class="burst-dot blue" style="--rotation: 201deg"></span>
+          <span class="burst-dot gold" style="--rotation: 229deg"></span>
+          <span class="burst-dot red" style="--rotation: 258deg"></span>
+          <span class="burst-dot blue" style="--rotation: 289deg"></span>
+          <span class="burst-dot gold" style="--rotation: 322deg"></span>
+        </div>
+
+        <div class="reveal-content">
+
+          <div class="photo-halo" aria-hidden="true"></div>
+
+          <span class="ornament corner-star star-one" aria-hidden="true">✦</span>
+          <span class="ornament corner-star star-two" aria-hidden="true">✧</span>
+          <span class="ornament corner-star star-three" aria-hidden="true">✦</span>
+          <span class="ornament corner-star star-four" aria-hidden="true">✧</span>
+
+          <span class="ornament feather feather-left" aria-hidden="true">❧</span>
+          <span class="ornament feather feather-right" aria-hidden="true">❧</span>
+
+          <span class="ornament heart-float heart-left" aria-hidden="true">♥</span>
+          <span class="ornament heart-float heart-right" aria-hidden="true">♥</span>
+
+          <!-- PHOTO -->
+          <div class="reveal-photo-frame">
+            <div class="photo-inner">
+              <img
+                id="couple-photo"
+                class="couple-photo"
+                src="assets/ASUKAFELLIPE.png"
+                alt="Asuka and Fellipe together"
+              >
+
+              <div class="image-error" id="image-error">
+                Please add the couple photo to<br>
+                <strong>assets/ASUKAFELLIPE.png</strong>
+              </div>
+            </div>
+
+            <span class="photo-caption-mark" aria-hidden="true">
+              F &amp; A · ALWAYS
+            </span>
+          </div>
+
+          <!-- Names -->
+          <div class="names-lockup">
+            <span class="name-fellipe">Fellipe</span>
+            <span class="name-heart">♥</span>
+            <span class="name-asuka">Asuka</span>
+          </div>
+
+          <!-- Story -->
+          <div class="story-block">
+            <p class="love-story-line">
+              Two different houses.
+              <br>
+              One little love story.
+            </p>
+
+            <p class="stars-line">
+              Maybe it was written in the stars…
+            </p>
+
+            <p class="found-line">
+              …or maybe we just found each other.
+            </p>
+
+            <span class="closing-heart">♥</span>
+          </div>
+
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const page = document.getElementById("love-page");
+    const revealPanel = document.getElementById("reveal-panel");
+    const yesButton = document.getElementById("yes-button");
+    const courseButton = document.getElementById("of-course-button");
+    const photo = document.getElementById("couple-photo");
+    const imageError = document.getElementById("image-error");
+
+    // Fade the image in once the local GitHub asset has loaded.
+    photo.addEventListener("load", () => {
+      photo.classList.add("loaded");
+      imageError.style.display = "none";
+    });
+
+    // Show a useful message if the image filename/path is wrong.
+    photo.addEventListener("error", () => {
+      photo.style.display = "none";
+      imageError.style.display = "grid";
+    });
+
+    function revealLoveStory() {
+      if (page.classList.contains("is-revealed")) return;
+
+      page.classList.add("is-revealed");
+      revealPanel.setAttribute("aria-hidden", "false");
+    }
+
+    yesButton.addEventListener("click", revealLoveStory);
+    courseButton.addEventListener("click", revealLoveStory);
+  </script>
+</body>
+</html>
