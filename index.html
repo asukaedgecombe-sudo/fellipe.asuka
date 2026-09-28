@@ -262,7 +262,8 @@
         18px 0 42px rgba(34,47,91,.62),
         0 22px 46px rgba(0,0,0,.38),
         inset 0 1px 0 rgba(255,255,255,.46);
-      backdrop-filter: blur(8px);
+      backdrop-filter: none;
+  -webkit-backdrop-filter: none;
       opacity: 0;
       transform: translateY(17px) scale(.94);
     }
@@ -272,7 +273,7 @@
       overflow: hidden;
       border-radius: 14px 14px 7px 7px;
       background: rgba(14,26,64,.5);
-      aspect-ratio: 1.22 / 1;
+      object-fit: cover;
     }
 
     .photo-inner::after {
@@ -291,14 +292,17 @@
       GitHub Pages is case-sensitive, so the filename must match exactly.
     */
     .couple-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      opacity: 0;
-      transition: opacity .3s ease;
-    }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity .3s ease;
+  image-rendering: auto;
+  filter: none;
+  transform: translateZ(0);
+}
 
     .couple-photo.loaded {
       opacity: 1;
