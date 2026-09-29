@@ -1007,6 +1007,170 @@
   100% { transform: scale(1); }
 }
 
+
+/* FULL PHOTO POP-UP REVEAL */
+.photo-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 4vw, 50px);
+  background:
+    radial-gradient(circle at center, rgba(104, 134, 228, 0.16), transparent 38%),
+    rgba(8, 10, 24, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.photo-fullscreen.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.photo-fullscreen::before,
+.photo-fullscreen::after {
+  content: "";
+  position: absolute;
+  width: min(75vw, 700px);
+  height: min(75vw, 700px);
+  border-radius: 50%;
+  border: 1px solid rgba(211, 166, 37, 0.45);
+  box-shadow:
+    0 0 35px rgba(211, 166, 37, 0.25),
+    inset 0 0 35px rgba(104, 134, 228, 0.12);
+  animation: popupOrbit 5s linear infinite;
+}
+
+.photo-fullscreen::after {
+  width: min(88vw, 820px);
+  height: min(88vw, 820px);
+  border-color: rgba(104, 134, 228, 0.28);
+  animation-direction: reverse;
+  animation-duration: 7s;
+}
+
+.photo-fullscreen-image {
+  position: relative;
+  z-index: 2;
+  max-width: min(92vw, 900px);
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 0 8px rgba(211, 166, 37, 0.16),
+    0 0 45px rgba(211, 166, 37, 0.5),
+    0 0 100px rgba(104, 134, 228, 0.35);
+  transform: scale(0.35);
+  opacity: 0;
+  animation: none;
+}
+
+.photo-fullscreen.is-open .photo-fullscreen-image {
+  animation: photoWholePop 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.photo-fullscreen-close {
+  position: absolute;
+  z-index: 4;
+  top: 22px;
+  right: 24px;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(8, 10, 24, 0.65);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.photo-fullscreen-close:hover {
+  transform: rotate(90deg) scale(1.08);
+  background: rgba(174, 0, 1, 0.75);
+}
+
+.photo-fullscreen-label {
+  position: absolute;
+  z-index: 3;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+@keyframes photoWholePop {
+  0% {
+    transform: scale(0.35) rotate(-3deg);
+    opacity: 0;
+    filter: brightness(1.8) blur(8px);
+  }
+  55% {
+    transform: scale(1.04) rotate(0.5deg);
+    opacity: 1;
+    filter: brightness(1.12) blur(0);
+  }
+  75% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1) blur(0);
+  }
+}
+
+@keyframes popupOrbit {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+body.photo-popup-open {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .photo-fullscreen {
+    padding: 14px;
+  }
+
+  .photo-fullscreen-image {
+    max-width: 94vw;
+    max-height: 78vh;
+    border-radius: 14px;
+  }
+
+  .photo-fullscreen-close {
+    top: 14px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .photo-fullscreen-label {
+    bottom: 15px;
+    font-size: 0.65rem;
+  }
+}
+
 </style>
 </head>
 
@@ -1101,33 +1265,45 @@
           <!-- Names -->
           <div class="names-lockup">
             <span class="name-fellipe">Fellipe</span>
-            <span class="name-heart">♥</span>
+            <span class="name-heart">❤︎</span>
             <span class="name-asuka">Asuka</span>
           </div>
 
           <!-- Story -->
           <div class="story-block">
             <p class="love-story-line">
-              Two different houses. Gryffindor and Ravenclaw.
+              Two different houses.
+              Gryffindor and Ravenclaw.
               <br>
-              One little love story.
+              Cerita cinta kami.
             </p>
 
             <p class="stars-line">
-              Maybe it was written in the stars…
+              Dari sama-sama belum bisa kasih kesempatan…
             </p>
 
             <p class="found-line">
-              …or maybe we just found each other.
+              …menjadi saling jatuh cinta.
             </p>
 
-            <span class="closing-heart">♥</span>
+            <span class="closing-heart">❤︎</span>
           </div>
 
         </div>
       </section>
     </section>
-  </main>
+  
+  <!-- FULLSCREEN PHOTO POP-UP -->
+  <div class="photo-fullscreen" id="photo-fullscreen" aria-hidden="true">
+    <button class="photo-fullscreen-close" id="photo-fullscreen-close"
+            type="button" aria-label="Close enlarged photo">×</button>
+    <img class="photo-fullscreen-image" id="photo-fullscreen-image"
+         src="assets/ASUKAFELLIPE.png"
+         alt="Asuka and Fellipe together">
+    <div class="photo-fullscreen-label">F &amp; A · ALWAYS</div>
+  </div>
+
+</main>
 
   <script>
     const page = document.getElementById("love-page");
@@ -1238,7 +1414,7 @@
       heartColors.forEach((color, index) => {
         const heart = document.createElement("span");
         heart.className = "photo-heart";
-        heart.textContent = "♥";
+        heart.textContent = "❤︎";
         heart.style.color = color;
         heart.style.left = `${x}px`;
         heart.style.top = `${y}px`;
@@ -1264,6 +1440,9 @@
       photoFrame.classList.remove("photo-magic-pulse");
       void photoFrame.offsetWidth;
       photoFrame.classList.add("photo-magic-pulse");
+
+      // Reveal the entire couple photo in a fullscreen magical pop-up.
+      setTimeout(openFullPhoto, 120);
 
       // Make the couple photo pop bigger when clicked.
       photo.classList.remove("photo-click-zoom");
@@ -1300,6 +1479,57 @@
           clientX: rect.left + rect.width / 2,
           clientY: rect.top + rect.height / 2
         });
+      }
+    });
+
+
+    // Fullscreen photo reveal.
+    const photoFullscreen = document.getElementById("photo-fullscreen");
+    const photoFullscreenImage = document.getElementById("photo-fullscreen-image");
+    const photoFullscreenClose = document.getElementById("photo-fullscreen-close");
+
+    function openFullPhoto() {
+      if (!photoFullscreen || !photoFullscreenImage) return;
+
+      photoFullscreen.classList.add("is-open");
+      photoFullscreen.setAttribute("aria-hidden", "false");
+      document.body.classList.add("photo-popup-open");
+
+      // Restart the pop animation every time the image opens.
+      photoFullscreenImage.style.animation = "none";
+      void photoFullscreenImage.offsetWidth;
+      photoFullscreenImage.style.animation = "";
+      photoFullscreenImage.focus?.();
+    }
+
+    function closeFullPhoto() {
+      if (!photoFullscreen) return;
+
+      photoFullscreen.classList.remove("is-open");
+      photoFullscreen.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("photo-popup-open");
+    }
+
+    photoFullscreenClose?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeFullPhoto();
+    });
+
+    photoFullscreen?.addEventListener("click", (event) => {
+      // Clicking outside the image closes the popup.
+      if (event.target === photoFullscreen) {
+        closeFullPhoto();
+      }
+    });
+
+    photoFullscreenImage?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeFullPhoto();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && photoFullscreen?.classList.contains("is-open")) {
+        closeFullPhoto();
       }
     });
 
