@@ -4,12 +4,195 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Fellipe and Asuka — two different houses, one little love story.">
-  <title>Fellipe ♥ Asuka</title>
+  <title>Fellipe & Asuka</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
+  /* =========================================================
+   PHOTO CLICK MAGIC EFFECT
+   ========================================================= */
+
+.reveal-photo-frame {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.reveal-photo-frame:active {
+  transform: scale(.97);
+}
+
+/* Expanding magical ring */
+.photo-click-ring {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #ffeaa0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  transform: translate(-50%, -50%) scale(.2);
+  opacity: 0;
+  box-shadow:
+    0 0 12px rgba(255, 234, 160, .95),
+    0 0 30px rgba(211, 166, 37, .7);
+  animation: photoRing .8s ease-out forwards;
+}
+
+/* Sparkle particles */
+.photo-sparkle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 21;
+  font-size: 15px;
+  color: #ffeaa0;
+  text-shadow:
+    0 0 6px #fff,
+    0 0 14px #d3a625,
+    0 0 24px #d3a625;
+  transform: translate(-50%, -50%) scale(.2);
+  opacity: 0;
+  animation: sparkleFly 1s cubic-bezier(.12,.75,.25,1) forwards;
+}
+
+/* Floating hearts */
+.photo-heart {
+  position: absolute;
+  pointer-events: none;
+  z-index: 21;
+  font-size: 16px;
+  transform: translate(-50%, -50%) scale(.3);
+  opacity: 0;
+  animation: heartFly 1.15s cubic-bezier(.12,.75,.25,1) forwards;
+  filter: drop-shadow(0 0 7px currentColor);
+}
+
+/* Photo pulse */
+.photo-magic-pulse {
+  animation: photoPulse .65s ease-out;
+}
+
+/* Golden flash over the photo */
+.photo-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 19;
+  pointer-events: none;
+  border-radius: 14px 14px 7px 7px;
+  background:
+    radial-gradient(
+      circle at var(--click-x) var(--click-y),
+      rgba(255,255,255,.85),
+      rgba(255,234,160,.35) 15%,
+      transparent 55%
+    );
+  opacity: 0;
+  animation: photoFlash .65s ease-out forwards;
+}
+
+/* Ring animation */
+@keyframes photoRing {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(8);
+  }
+}
+
+/* Golden sparkle animation */
+@keyframes sparkleFly {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      scale(.2)
+      rotate(0deg);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--move-x)),
+        calc(-50% + var(--move-y))
+      )
+      scale(1.3)
+      rotate(180deg);
+  }
+}
+
+/* Heart animation */
+@keyframes heartFly {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      scale(.3)
+      rotate(0deg);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--move-x)),
+        calc(-50% + var(--move-y))
+      )
+      scale(1.15)
+      rotate(var(--rotation));
+  }
+}
+
+/* Photo pulse */
+@keyframes photoPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.025);
+  }
+
+  55% {
+    transform: scale(.985);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Flash */
+@keyframes photoFlash {
+  0% {
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+  
   <style>
     :root {
       --red: #740001;
