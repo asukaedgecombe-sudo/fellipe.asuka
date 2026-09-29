@@ -991,6 +991,22 @@
       outline-offset: 5px;
     }
 
+
+/* CLICK-TO-ZOOM PHOTO EFFECT */
+.couple-photo.photo-click-zoom {
+  animation: couplePhotoZoom 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
+  position: relative;
+  z-index: 5;
+}
+
+@keyframes couplePhotoZoom {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.14); }
+  70%  { transform: scale(1.10); }
+  100% { transform: scale(1); }
+}
+
 </style>
 </head>
 
@@ -1248,6 +1264,15 @@
       photoFrame.classList.remove("photo-magic-pulse");
       void photoFrame.offsetWidth;
       photoFrame.classList.add("photo-magic-pulse");
+
+      // Make the couple photo pop bigger when clicked.
+      photo.classList.remove("photo-click-zoom");
+      void photo.offsetWidth; // restart animation on every click
+      photo.classList.add("photo-click-zoom");
+
+      setTimeout(() => {
+        photo.classList.remove("photo-click-zoom");
+      }, 700);
 
       // Clean up temporary particles.
       setTimeout(() => {
